@@ -1,28 +1,29 @@
 {% set name = "azure-mgmt-marketplaceordering" %}
-{% set version = "0.2.1" %}
+{% set version = "1.1.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: dc765cde7ec03efe456438c85c6207c2f77775a8ce8a7adb19b0df5c5dc513c2
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  sha256: 68b381f52a4df4435dacad5a97e1c59ac4c981f667dcca8f9d04453417d60ad8
   
 build:
-  noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python >3.0
+    - python
     - pip
+    - wheel
+    - setuptools
   run:
-    - python >3.0
+    - python
     - msrest >=0.5.0
-    - msrestazure >=0.4.32,<2.0.0
     - azure-common >=1.1,<2.0
+    - azure-mgmt-core >=1.2.0,<2.0.0
 
 test:
   imports:
@@ -32,10 +33,13 @@ test:
 
 about:
   home: https://github.com/Azure/azure-sdk-for-python
+  summary: Microsoft Azure Market Place Ordering Client Library for Python.
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
-  summary: 'Microsoft Azure Market Place Ordering Client Library for Python.'
+  description: Microsoft Azure Market Place Ordering Client Library for Python.
+  dev_url: https://github.com/Azure/azure-sdk-for-python
+  doc_url: https://github.com/Azure/azure-sdk-for-python
 
 
 extra:
